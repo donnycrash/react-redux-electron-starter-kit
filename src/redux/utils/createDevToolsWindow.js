@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import DevTools from '../../containers/DevToolsWindow'
-
+/* istanbul ignore next  */
 export default function createDevToolsWindow (store) {
   const win = window.open(
     null,
