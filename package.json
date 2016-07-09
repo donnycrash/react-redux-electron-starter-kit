@@ -15,8 +15,8 @@
       "iconUrl": "",
       "setupIcon": ""
     },
-    "osx": {
-      "icon": "app_build/ico_installer_mac.icns"
+    "mac": {
+      "icon": "app_build/icon.icns"
     },
     "asar": true
   },

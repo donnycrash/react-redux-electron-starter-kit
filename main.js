@@ -3,6 +3,8 @@ const electron = require('electron')
 const app = electron.app
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow
+const nativeImage = electron.nativeImage
+const appIcon = nativeImage.createFromPath('./app_build/icon.ico')
 
 if (process.env.NODE_ENV === 'development') {
   require('babel-register')
@@ -14,7 +16,12 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    icon: appIcon,
+    title: 'react-redux-electron-starter-kit'
+  })
 
   // and load the index.html of the app.
   process.env.NODE_ENV === 'development' ? mainWindow.loadURL(`file://${__dirname}/src/index.html`)
