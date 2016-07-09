@@ -66,21 +66,24 @@ Usage
 |`start`|Spins up Koa server to serve your app at `localhost:3000`. HMR will be enabled in development.|
 |`start-app-hot`| Starts up an Electron instance pointing to `localhost:3000`. HMR will be enabled in development.|
 |`start-app`| Starts up an Electron instance pointing to `localhost:3000`. HMR will be enabled in development.|
-|`compile`|Compiles the application to disk (`~/dist` by default).|
 |`dev`|Same as `npm start`, but enables nodemon to automatically restart the server when server-related code is changed.|
 |`dev:nw`|Same as `npm run dev`, but opens the redux devtools in a new window.|
 |`dev:no-debug`|Same as `npm run dev` but disables redux devtools.|
 |`test`|Runs unit tests with Karma and generates a coverage report.|
 |`test:dev`|Runs Karma and watches for changes to re-run tests; does not generate coverage reports.|
-|`deploy`|Runs linter, tests, and then, on success, compiles your application to disk.|
-|`deploy:dev`|Same as `deploy` but overrides `NODE_ENV` to "development".|
-|`deploy:prod`|Same as `deploy` but overrides `NODE_ENV` to "production".|
 |`flow:check`|Analyzes the project for type errors.|
 |`lint`|Lint all `.js` files.|
 |`lint:fix`|Lint and fix all `.js` files. [Read more on this](http://eslint.org/docs/user-guide/command-line-interface.html#fix).|
-|`package:linux` |Package a linux app.|
-|`package:mac` |Package a mac app.|
-|`package:win32` |Package a win 32 app.|
+|`compile:dev` |Compiles code to app/dist with `NODE_ENV` as "development".|
+|`compile:prod` |Compiles code to app/dist with `NODE_ENV` as "production".|
+|`compile-prepare` |Prepares app folder with its package.json and node_modules.|
+|`compile-app` |Compiles app's web code (react and redux).|
+|`compile-electron` |Compiles app's electron code (from /electron).|
+|`pack` |Builds unpacked app for testing. `NODE_ENV` is "development".|
+|`dist` |Builds app for distribution on /release.|
+|`dist:linux` |Builds a linux app.|
+|`dist:mac` |Builds a mac app.|
+|`dist:win32` |Builds a win 32 app.|
 
 
 Structure
