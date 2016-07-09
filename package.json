@@ -10,7 +10,7 @@
   "build": {
     "productName": "React Redux Electron Starter",
     "appId": "YourBundleId",
-    "app-category-type": "public.app-category.business",
+    "app-category-type": "public.app-category.yourCategory",
     "win": {
       "iconUrl": "",
       "setupIcon": ""
@@ -25,11 +25,6 @@
     "buildResources": "app_build"
   },
   "scripts": {
-    "clean": "rimraf dist",
-    "compile:prod": "better-npm-run compile:prod",
-    "compile:electron": "better-npm-run compile:electron",
-    "lint": "eslint .",
-    "lint:fix": "npm run lint -- --fix",
     "start": "better-npm-run start",
     "start-app": "better-npm-run start-app",
     "start-app-hot": "better-npm-run start-app-hot",
@@ -38,63 +33,29 @@
     "dev:no-debug": "npm run dev -- --no_debug",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch",
-    "deploy": "better-npm-run deploy",
-    "deploy:dev": "better-npm-run deploy:dev",
-    "deploy:prod": "better-npm-run deploy:prod",
     "flow:check": "babel-node bin/flow-check",
+    "lint": "eslint .",
+    "lint:fix": "npm run lint -- --fix",
     "codecov": "cat coverage/*/lcov.info | codecov",
-    "dist:pre": "node bin/build-app-packagejson && install-app-deps && npm run compile:prod && npm run compile:electron",
-    "package:linux": "better-npm-run package:pre && node bin/download-node --p linux --a x64 --d && build linux --arch x64",
-    "package:mac": "better-npm-run package:pre && build --mac",
-    "package:win32": "better-npm-run package:pre && build win32 --arch x64 --dist"
+    "compile:dev": "better-npm-run compile:prod",
+    "compile:prod": "better-npm-run compile:prod",
+    "compile-prepare": "node bin/build-app-packagejson && install-app-deps",
+    "compile-app": "babel-node bin/compile && cp main.js app/",
+    "compile-electron": "babel -d app/dist/electron electron",
+    "pack": "better-npm-run compile:dev && build --dir",
+    "dist": "better-npm-run compile:prod && build",
+    "dist:linux": "better-npm-run compile:prod && build --linux",
+    "dist:mac": "better-npm-run compile:prod && build --mac",
+    "dist:win32": "better-npm-run compile:prod && build --win"
   },
   "bin": {
     "electron": "./node_modules/.bin/electron"
   },
   "betterScripts": {
-    "compile:prod": {
-      "command": "babel-node bin/compile && cp main.js app/",
-        "env": {
-        "NODE_ENV": "production"
-      }
-    },
-    "compile:electron": {
-      "command": "babel -d app/dist/electron electron",
-      "env": {
-        "NODE_ENV": "production"
-      }
-    },
     "dev": {
       "command": "nodemon --exec babel-node bin/server",
       "env": {
         "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy": {
-      "command": "npm run clean && npm run compile",
-      "env": {
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:dev": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "development",
-        "DEBUG": "app:*"
-      }
-    },
-    "deploy:prod": {
-      "command": "npm run deploy",
-      "env": {
-        "NODE_ENV": "production",
-        "DEBUG": "app:*"
-      }
-    },
-    "package:pre": {
-      "command": "node bin/build-app-packagejson && install-app-deps && npm run compile:prod && npm run compile:electron",
-      "env": {
-        "NODE_ENV": "production",
         "DEBUG": "app:*"
       }
     },
@@ -123,6 +84,20 @@
         "NODE_ENV": "test",
         "DEBUG": "app:*"
       }
+    },
+    "compile:dev": {
+      "command": "npm run compile-prepare && npm run compile-app && npm run compile-electron",
+        "env": {
+        "NODE_ENV": "development",
+        "DEBUG": "app:*"
+      }
+    },
+    "compile:prod": {
+      "command": "npm run compile-prepare && npm run compile-app && npm run compile-electron",
+        "env": {
+        "NODE_ENV": "production",
+        "DEBUG": "app:*"
+      }
     }
   },
   "repository": {
@@ -134,6 +109,10 @@
     {
       "name": "David Zukowski",
       "email": "david@zuko.me"
+    },
+    {
+      "name": "Guilherme Castro",
+      "email": "skastr052@gmail.com"
     }
   ],
   "bugs": {
